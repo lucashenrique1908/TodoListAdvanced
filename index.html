@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced To Do List</title>
+       <!-- Css Project-->
+    <link rel="stylesheet" href="css/style.css"> 
+        <!--Script Project-->
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    <div class="main-container">
+        <header class="headerContain">
+            <h1>Advanced To Do List</h1>
+        </header>
+        <div class="div-form-container">
+            <form class="form-control">
+                    <p>Add your task:</p>
+                    <input type="text" id="to-do-input" placeholder="O que você vai fazer?">
+                    <button>To Add</button>
+             </form>
+        </div>
+        <div class="edit-container hide">
+            <form id="edit-form" >
+                <p>Edit your task:</p>
+                <input type="text" name="edit" id="edit-input">
+                <button type="submit" class="edit-btn">Edit</button>
+            </form>
+            <button id="cancelBtn">Cancel</button>
+        </div>
+        <div class="tool-bar">
+            <div class="search-contain">
+                <p>Search:</p>
+                    <input type="search" name="search" id="search-input">
+                    <button id="erase-btn">Delete</button>
+            </div>
+            <div class="filter-contain">
+                <select name="filter" id="filter-select">
+                   <option value="all">All</option>
+                   <option value="done">Done</option>
+                   <option value="to-do">To Do</option>
+                </select>
+            </div>
+        </div>
+        
+            <div class="task-container">
+                
+                </div>
+    
+        </div>
+    </div>
+</body>
+</html>

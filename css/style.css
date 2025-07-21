@@ -1,0 +1,136 @@
+    /* General Settings */
+
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Helvetica;
+    }
+    button {
+        padding: 6px;
+        background-color: rgb(10, 10, 28);
+        color: #fff;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: .8rem;
+        font-weight: bold;
+        transition: .4s;
+    }
+    button:hover {
+        background-color: #fff;
+        color: rgb(10, 10, 28);
+    }
+    input {
+        padding: 5px;
+        border-radius: 8px;
+        margin-right: 10px;
+        align-items: center;
+    }
+    body {
+        background-image: url("../img/bg.jpg");
+        background-position: center;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+    }
+    /* To Do Settings */
+
+    .main-container {
+        background-color: #fff;
+        padding: 2rem;
+        margin: 20px;
+        border-radius: 15px;
+    } 
+
+    .div-form-container, .edit-container {
+        display: flex;
+        flex-direction: column; 
+        padding: 1.2rem;
+        font-size: 1rem;
+        font-weight: bold;
+        border-bottom: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+    }
+    #cancelBtn {
+        margin-top: 8px;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    /* Search area */
+    .tool-bar{
+        display: flex;
+        padding: 10px 15px;
+        margin-bottom: 10px;
+    }
+    .search-contain {
+        padding-right: 1.5rem;
+        border-right: 1px solid #ccc;
+    }
+   
+    .filter-contain select {
+        padding: 5px;
+        margin-left: 15px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+    }
+    #cancelBtn {
+        width: 85px;
+        margin-top: 10px;
+    }
+
+    /*Task area*/
+    .task-container {
+        border-top: 1px solid #ccc;
+    }
+
+    .task {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+    }
+    .task button {
+        min-width: 80px; /* ou 100px se preferir mais espaço */
+        margin: 5px;
+        padding: 6px;
+        white-space: nowrap;
+    }
+
+
+
+    .task h4{
+        flex: 1;
+    }
+        .task button {
+            width: 50px;
+        margin: 5px;
+    }
+
+    .done{
+        background-color: rgb(10, 10, 28);
+        color: #fff;
+        font-style: italic;
+        height: 100%;
+        padding: 15px;
+        width: 100%;
+        border-radius: 11px;
+    }
+    .done h4{
+        text-decoration: line-through;
+    }
+    .done button {
+        background-color: #fff;
+        color: rgb(10, 10, 28);
+    }
+    .done button:hover {
+        background-color: rgb(10, 10, 28);
+        color: white;
+    }
