@@ -1,0 +1,168 @@
+/* General Settings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-image: url("../img/paisagem.jpg");
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+button {
+    padding: 6px 12px;
+    background-color: rgb(10, 10, 28);
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
+    transition: 0.4s;
+}
+
+button:hover {
+    background-color: #fff;
+    color: rgb(10, 10, 28);
+}
+
+input,
+select {
+    padding: 5px;
+    border-radius: 8px;
+    margin-right: 10px;
+}
+
+.hide {
+    display: none;
+}
+
+/* Main container */
+.main-container {
+    background-color: #fff;
+    padding: 2rem;
+    margin: 20px;
+    border-radius: 15px;
+    width: 500px;
+    max-width: 95%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Header */
+.headerContain {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.headerContain h1 {
+    font-size: 1.8rem;
+    color: rgb(10, 10, 28);
+}
+
+/* Forms */
+.div-form-container,
+.edit-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    gap: 0.8rem;
+}
+
+#cancelBtn {
+    width: 85px;
+    margin-top: 10px;
+}
+
+/* Tool Bar */
+.tool-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+}
+
+.search-contain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-right: 1rem;
+    border-right: 1px solid #ccc;
+    gap: 0.5rem;
+}
+
+.filter-contain select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+/* Task container */
+.task-container {
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+.task {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.task h4 {
+    flex: 1;
+    word-break: break-word;
+}
+
+.task-buttons {
+    display: flex;
+    gap: 5px;
+    flex-wrap: nowrap;
+    /* Sempre lado a lado */
+}
+
+/* Done task styling */
+.done {
+    background-color: rgb(10, 10, 28);
+    color: #fff;
+    font-style: italic;
+    padding: 10px;
+    width: 100%;
+    border-radius: 11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.done h4 {
+    text-decoration: line-through;
+    flex: 1;
+}
+
+.done .task-buttons button {
+    background-color: #fff;
+    color: rgb(10, 10, 28);
+}
+
+.done .task-buttons button:hover {
+    background-color: rgb(10, 10, 28);
+    color: #fff;
+}
