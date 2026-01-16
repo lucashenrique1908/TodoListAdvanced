@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <!-- Css -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Css responsivo -->
+    <link rel="stylesheet" href="css/responsivo.css">
+    <!-- Js -->
+    <script src="js/script.js" defer></script>
+</head>
+
+<body>
+    <main>
+        <h1>Task Manager</h1>
+        <!-- Adicionar tarefas -->
+        <div class="add-container">
+            <label for="add">Adicione aqui a sua tarefa
+                  <input type="text" name="add" id="add">
+            </label>
+            <button class="add-button">Adicionar</button>
+
+        </div>
+        <div class="edit-and-filter-container hide">
+            <!-- editar tarefas-->
+                <label for="edit">Edite aqui a sua tarefa
+                    <input type="text" name="edit" id="edit">
+                </label>
+                <button class="edit-completed-btn">Ok</button>
+                <button id="cancel-edit-btn">Cancelar</button>
+            
+        </div>
+        <div class="search-filter-container">
+            <!-- Pesquisar tarefas -->
+            <div class="search-container">
+                <label for="search">Pesquise aqui a sua tarefa
+                    <input type="text" name="search" id="search">
+                </label>
+            </div>
+            <div class="filter-container">
+                <!-- filtrar tarefas -->
+                <select id="filter">
+                    <option value="all" class="option-filter">todas</option>
+                    <option value="completed" class="option-filter">completas</option>
+                    <option value="in-progress" class="option-filter">incompletas</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- tarefas adicionadas -->
+
+        <div class="tasks-container">
+            <div class="task-list">
+                <p class="task">tarefa</p>
+                <div class="action-button">
+                    <button class="done-button">Concluida</button>
+                    <button class="edit-button">Editar</button>
+                    <button class="remove-button">Remover</button>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+</body>
+
+</html>

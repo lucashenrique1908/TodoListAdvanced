@@ -1,0 +1,39 @@
+@media screen and (max-width: 650px) {
+    main {
+        margin: 0 15px;
+    }
+}
+
+@media (max-width: 450px) {
+    .edit-and-filter-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .filter-container {
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .add-container label,
+    .search-container label {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .add-container input,
+    .search-container input {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+/* .add-container input,
+    .search-container input {
+        padding: 10px;
+        border-radius: 11px;
+        margin-left: 6px;
+        background-color: transparent;
+        border: 1px solid #fff;
+        color: #fff
+    } */
