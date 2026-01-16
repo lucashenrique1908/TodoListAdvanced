@@ -7,6 +7,8 @@ const editInput = document.querySelector("#edit");
 const editCompletedBtn = document.querySelector(".edit-completed-btn");
 const addBtn = document.querySelector(".add-button");
 const cancelEditBtn = document.querySelector("#cancel-edit-btn");
+const filterBtn = document.querySelector("#filter");
+const eraseBtn = document.querySelector("#erase-butto");
 
 // Containers
 const editContainer = document.querySelector(".edit-and-filter-container");
@@ -48,27 +50,25 @@ const saveTask = (text) => {
   tasksContainer.appendChild(taskHeader);
 };
 
- const toggleForms = (showEdit = false) =>   {
-
+const toggleForms = (showEdit = false) => {
   addContainer.classList.toggle("hide", showEdit);
   tasksContainer.classList.toggle("hide", showEdit);
   filterContainer.classList.toggle("hide", showEdit);
   searchContainer.classList.toggle("hide", showEdit);
   editContainer.classList.toggle("hide", !showEdit);
-}
+};
 
 const updatedTodo = (text) => {
   const todos = document.querySelectorAll(".task-list");
 
-  todos.forEach((todo)=> {
+  todos.forEach((todo) => {
+    let editInput = todo.querySelector("p");
 
-    let editInput = todo.querySelector("p")
-
-    if(editInput.innerText === oldTaskValue ) {
-        editInput.innerText = text
+    if (editInput.innerText === oldTaskValue) {
+      editInput.innerText = text;
     }
-  })
-}
+  });
+};
 
 function toggleTaskDone(taskEl) {
   taskEl.classList.toggle("conclused");
@@ -83,6 +83,29 @@ function editTask(taskEl) {
   editInput.value = taskEl.querySelector(".task").innerText;
   toggleForms(true); // mostra só o formulário de edição
 }
+
+const filterTodos = (filterValue) => {
+  const todos = document.querySelectorAll(".task-list");
+  switch (filterValue) {
+    case "all":
+      todos.forEach((todo) => (todo.style.display = "flex"));
+      break;
+    case "completed":
+      todos.forEach((todo) =>
+        todo.classList.contains("conclused")
+          ? (todo.style.display = "flex")
+          : (todo.style.display = "none")
+      );
+      break;
+    case "in-progress":
+      todos.forEach((todo) =>
+        !todo.classList.contains("conclused")
+          ? (todo.style.display = "flex")
+          : (todo.style.display = "none")
+      );
+      break;
+  }
+};
 //eventos
 
 addBtn.addEventListener("click", (e) => {
@@ -93,8 +116,8 @@ addBtn.addEventListener("click", (e) => {
     saveTask(newTask);
   }
 
-  addInput.value = ""
-  addInput.focus()
+  addInput.value = "";
+  addInput.focus();
 });
 
 document.addEventListener("click", (e) => {
@@ -124,11 +147,17 @@ editCompletedBtn.addEventListener("click", (e) => {
   const newText = editInput.value.trim();
 
   if (newText && taskBeingEdited) {
-
     taskBeingEdited.querySelector(".task").innerText = newText;
 
     taskBeingEdited = null;
 
     toggleForms(false);
   }
+});
+
+filterBtn.addEventListener("change", (e) => {
+  const filterValue = e.target.value;
+  filterTodos(filterValue);
+
+
 });
