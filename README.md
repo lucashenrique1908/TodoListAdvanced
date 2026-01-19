@@ -1,45 +1,30 @@
-Lucas Henrique – Front-End Portfolio
+TodoListAdvanced
 
-This repository hosts my personal portfolio website, available at:
-https://lucashenrique1908.github.io/myPortf-lio/
+This repository contains the TodoListAdvanced project, a task management application developed to practice and improve front-end development skills.
+
+Live version:
+https://lucashenrique1908.github.io/TodoListAdvanced/
 
 Overview
 
-This portfolio website showcases a collection of projects I have developed as part of my learning journey in web development. It includes static and interactive applications implemented using HTML, CSS, JavaScript, and React. The site also presents a short professional introduction and contact information.
+TodoListAdvanced is a web-based to-do list application focused on productivity and usability.
+The project is designed to handle task creation, organization, and management through a clean and interactive interface.
 
-Website Features
+Features
 
-The portfolio website includes:
+ - Depending on the current stage of development, the application may include:
 
-* Landing section — Welcoming message and introduction.
+ - Creating and removing tasks
 
-* Project showcase — A list of projects developed to demonstrate practical skills in front-end development.
+ - Marking tasks as completed
 
-About Me — Professional background, current focus, and career objectives.
+ - Filtering and searching tasks
 
-Contact section — Phone number, LinkedIn and GitHub links.
+ - Persistent data storage (when applicable)
 
-Projects Included
+ - Responsive and user-friendly interface
 
-The following projects are presented on the portfolio site with brief descriptions as shown on the site:
-
-* Calculadora – Simple calculator developed with JavaScript.
-
-* Calculadora IMC – Body Mass Index calculator for health assessment.
-
-* To-Do List – Task manager with filters, search, and local storage support.
-
-* Curiosidades do Android – Responsive layout project with HTML and CSS.
-
-* HDC Project – Introductory HTML and CSS project.
-
-* QR Code Generation – Project involving generation of QR codes.
-
-* Simple Form – Basic form page (semantic HTML).
-
-Technologies
-
-This project uses the following technologies:
+Technologies Used
 
 * HTML
 
@@ -47,33 +32,26 @@ This project uses the following technologies:
 
 * JavaScript
 
-* React
+Purpose
 
-How to View
+This project was created to:
 
-The deployed version of the site is hosted with GitHub Pages and can be accessed directly in any web browser:
+Practice JavaScript logic and DOM manipulation
 
-Link: https://lucashenrique1908.github.io/myPortf-lio/
+Improve front-end structure and code organization
 
+Experiment with UI behavior and interactivity
 
-If you wish to run or modify the site locally:
+It also serves as a foundation for future improvements and feature expansion.
 
-Clone this repository:
+How to Run Locally:
 
-git clone https://github.com/lucashenrique1908/myPortf-lio.git
+ - Clone the repository:  git clone https://github.com/lucashenrique1908/TodoListAdvanced.git
 
-This portfolio is a reflection of my current skills and ongoing learning process in front-end development. Future improvements may include:
+Project Status
 
-Additional projects with advanced functionality.
+This project is under continuous development and may receive updates, refinements, and new features over time.
 
-Refined UI/UX enhancements.
+Notes
 
-Contact:
-
-For any questions or opportunities, feel free to reach out:
-
-Email: contato.emphenrique@gmail.com
-
-LinkedIn: https://www.linkedin.com/in/lucassouzadevfullstack
-
-GitHub: https://github.com/lucashenrique1908
+TodoListAdvanced is part of a learning process and reflects the progressive enhancement of front-end skills rather than a finalized production application.
