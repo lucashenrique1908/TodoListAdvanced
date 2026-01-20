@@ -8,7 +8,6 @@ const editCompletedBtn = document.querySelector(".edit-completed-btn");
 const addBtn = document.querySelector(".add-button");
 const cancelEditBtn = document.querySelector("#cancel-edit-btn");
 const filterBtn = document.querySelector("#filter");
-const eraseBtn = document.querySelector("#erase-butto");
 
 // Containers
 const editContainer = document.querySelector(".edit-and-filter-container");
@@ -17,11 +16,15 @@ const filterContainer = document.querySelector(".filter-container");
 const tasksContainer = document.querySelector(".tasks-container");
 const searchContainer = document.querySelector(".search-container");
 
-let oldTaskValue;
+let taskBeingEdited = null;
 
-const saveTask = (text) => {
+// Função para criar tarefas
+const saveTask = (text, conclused = false, save = true, id = null) => {
   const taskHeader = document.createElement("div");
-  taskHeader.classList.add("task-list"); // div principal
+  taskHeader.classList.add("task-list");
+  taskHeader.dataset.id = id ?? Date.now();
+
+  if (conclused) taskHeader.classList.add("conclused");
 
   const todoTitle = document.createElement("p");
   todoTitle.classList.add("task");
@@ -34,22 +37,31 @@ const saveTask = (text) => {
 
   const conclusedBtn = document.createElement("button");
   conclusedBtn.classList.add("done-button");
-  conclusedBtn.innerText = "Concluida";
+  conclusedBtn.innerText = "Concluída";
   actionBtn.appendChild(conclusedBtn);
 
-  const editTask = document.createElement("button");
-  editTask.innerText = "Editar";
-  editTask.classList.add("edit-button");
-  actionBtn.appendChild(editTask);
+  const editTaskBtn = document.createElement("button");
+  editTaskBtn.classList.add("edit-button");
+  editTaskBtn.innerText = "Editar";
+  actionBtn.appendChild(editTaskBtn);
 
-  const removeTask = document.createElement("button");
-  removeTask.innerText = "Remover";
-  removeTask.classList.add("remove-button");
-  actionBtn.appendChild(removeTask);
+  const removeTaskBtn = document.createElement("button");
+  removeTaskBtn.classList.add("remove-button");
+  removeTaskBtn.innerText = "Remover";
+  actionBtn.appendChild(removeTaskBtn);
+
+  if (save) {
+    saveTodoLocalStorage({
+      id: Number(taskHeader.dataset.id),
+      text,
+      conclused: taskHeader.classList.contains("conclused"),
+    });
+  }
 
   tasksContainer.appendChild(taskHeader);
 };
 
+// Mostrar / esconder formulário de edição
 const toggleForms = (showEdit = false) => {
   addContainer.classList.toggle("hide", showEdit);
   tasksContainer.classList.toggle("hide", showEdit);
@@ -58,64 +70,62 @@ const toggleForms = (showEdit = false) => {
   editContainer.classList.toggle("hide", !showEdit);
 };
 
-const updatedTodo = (text) => {
-  const todos = document.querySelectorAll(".task-list");
-
-  todos.forEach((todo) => {
-    let editInput = todo.querySelector("p");
-
-    if (editInput.innerText === oldTaskValue) {
-      editInput.innerText = text;
-    }
-  });
-};
-
+// Marcar tarefa como concluída e atualizar LocalStorage
 function toggleTaskDone(taskEl) {
   taskEl.classList.toggle("conclused");
+
+  const id = Number(taskEl.dataset.id);
+  const todos = getTodoLocalStorage();
+
+  const updatedTodos = todos.map((todo) => {
+    if (todo.id === id) {
+      return { ...todo, conclused: taskEl.classList.contains("conclused") };
+    }
+    return todo;
+  });
+
+  localStorage.setItem("todos", JSON.stringify(updatedTodos));
 }
 
+// Remover tarefa da tela
 function removeTask(taskEl) {
   taskEl.remove();
 }
 
+// Editar tarefa
 function editTask(taskEl) {
   taskBeingEdited = taskEl;
   editInput.value = taskEl.querySelector(".task").innerText;
-  toggleForms(true); // mostra só o formulário de edição
+  toggleForms(true);
 }
 
+// Filtrar tarefas
 const filterTodos = (filterValue) => {
   const todos = document.querySelectorAll(".task-list");
-  switch (filterValue) {
-    case "all":
-      todos.forEach((todo) => (todo.style.display = "flex"));
-      break;
-    case "completed":
-      todos.forEach((todo) =>
-        todo.classList.contains("conclused")
-          ? (todo.style.display = "flex")
-          : (todo.style.display = "none")
-      );
-      break;
-    case "in-progress":
-      todos.forEach((todo) =>
-        !todo.classList.contains("conclused")
-          ? (todo.style.display = "flex")
-          : (todo.style.display = "none")
-      );
-      break;
-  }
+  todos.forEach((todo) => {
+    switch (filterValue) {
+      case "all":
+        todo.style.display = "flex";
+        break;
+      case "completed":
+        todo.style.display = todo.classList.contains("conclused")
+          ? "flex"
+          : "none";
+        break;
+      case "in-progress":
+        todo.style.display = !todo.classList.contains("conclused")
+          ? "flex"
+          : "none";
+        break;
+    }
+  });
 };
-//eventos
 
+// Eventos
 addBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  const newTask = addInput.value;
-
-  if (newTask) {
-    saveTask(newTask);
-  }
-
+  const newTask = addInput.value.trim();
+  if (newTask) saveTask(newTask, false, true);
   addInput.value = "";
   addInput.focus();
 });
@@ -123,41 +133,64 @@ addBtn.addEventListener("click", (e) => {
 document.addEventListener("click", (e) => {
   const target = e.target;
   const taskEl = target.closest(".task-list");
+  if (!taskEl) return;
 
-  if (target.classList.contains("done-button") && taskEl) {
-    toggleTaskDone(taskEl);
-  }
+  if (target.classList.contains("done-button")) toggleTaskDone(taskEl);
 
-  if (target.classList.contains("remove-button") && taskEl) {
+  if (target.classList.contains("remove-button")) {
+    const id = Number(taskEl.dataset.id);
     removeTask(taskEl);
+    removeTaskLocalStorage(id);
   }
 
-  if (target.classList.contains("edit-button") && taskEl) {
-    editTask(taskEl);
-  }
+  if (target.classList.contains("edit-button")) editTask(taskEl);
 });
 
 cancelEditBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  toggleForms();
+  toggleForms(false);
 });
+
 editCompletedBtn.addEventListener("click", (e) => {
   e.preventDefault();
-
   const newText = editInput.value.trim();
-
   if (newText && taskBeingEdited) {
     taskBeingEdited.querySelector(".task").innerText = newText;
 
-    taskBeingEdited = null;
+    // Atualizar LocalStorage
+    const id = Number(taskBeingEdited.dataset.id);
+    const todos = getTodoLocalStorage();
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, text: newText } : todo
+    );
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
 
+    taskBeingEdited = null;
     toggleForms(false);
   }
 });
 
-filterBtn.addEventListener("change", (e) => {
-  const filterValue = e.target.value;
-  filterTodos(filterValue);
+filterBtn.addEventListener("change", (e) => filterTodos(e.target.value));
 
+// LocalStorage
+const getTodoLocalStorage = () =>
+  JSON.parse(localStorage.getItem("todos")) || [];
 
-});
+const saveTodoLocalStorage = (todo) => {
+  const todos = getTodoLocalStorage();
+  todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(todos));
+};
+
+const removeTaskLocalStorage = (id) => {
+  const todos = getTodoLocalStorage();
+  const filteredTodos = todos.filter((todo) => todo.id !== id);
+  localStorage.setItem("todos", JSON.stringify(filteredTodos));
+};
+
+const loadTodos = () => {
+  const todos = getTodoLocalStorage();
+  todos.forEach((todo) => saveTask(todo.text, todo.conclused, false, todo.id));
+};
+  
+loadTodos();
