@@ -8,6 +8,7 @@ const editCompletedBtn = document.querySelector(".edit-completed-btn");
 const addBtn = document.querySelector(".add-button");
 const cancelEditBtn = document.querySelector("#cancel-edit-btn");
 const filterBtn = document.querySelector("#filter");
+const eraseBtn = document.querySelector("#erase-button");
 
 // Containers
 const editContainer = document.querySelector(".edit-and-filter-container");
@@ -61,6 +62,15 @@ const saveTask = (text, conclused = false, save = true, id = null) => {
   tasksContainer.appendChild(taskHeader);
 };
 
+const handleAddTask = () => {
+  const newTask = addInput.value.trim();
+  if (!newTask) return;
+
+  saveTask(newTask, false, true);
+  addInput.value = "";
+  addInput.focus();
+};
+
 // Mostrar / esconder formulário de edição
 const toggleForms = (showEdit = false) => {
   addContainer.classList.toggle("hide", showEdit);
@@ -88,9 +98,7 @@ function toggleTaskDone(taskEl) {
 }
 
 // Remover tarefa da tela
-function removeTask(taskEl) {
-  taskEl.remove();
-}
+const removeTask = (taskEl) => taskEl.remove();
 
 // Editar tarefa
 function editTask(taskEl) {
@@ -121,13 +129,31 @@ const filterTodos = (filterValue) => {
   });
 };
 
+const getSearchInputs = (search) => {
+  const todos = document.querySelectorAll(".task-list");
+
+  todos.forEach((todo) => {
+    let todoTitle = todo.querySelector("p").innerText.toLowerCase();
+
+    const searchDefault = search.toLowerCase();
+    todo.style.display = "flex";
+
+    if (!todoTitle.includes(searchDefault)) {
+      todo.style.display = "none";
+    }
+  });
+};
+
 // Eventos
 addBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  const newTask = addInput.value.trim();
-  if (newTask) saveTask(newTask, false, true);
-  addInput.value = "";
-  addInput.focus();
+  handleAddTask();
+});
+addInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    handleAddTask();
+  }
 });
 
 document.addEventListener("click", (e) => {
@@ -161,7 +187,7 @@ editCompletedBtn.addEventListener("click", (e) => {
     const id = Number(taskBeingEdited.dataset.id);
     const todos = getTodoLocalStorage();
     const updatedTodos = todos.map((todo) =>
-      todo.id === id ? { ...todo, text: newText } : todo
+      todo.id === id ? { ...todo, text: newText } : todo,
     );
     localStorage.setItem("todos", JSON.stringify(updatedTodos));
 
@@ -171,6 +197,20 @@ editCompletedBtn.addEventListener("click", (e) => {
 });
 
 filterBtn.addEventListener("change", (e) => filterTodos(e.target.value));
+
+searchInput.addEventListener("keyup", (e) => {
+  const searchTarget = e.target.value;
+
+  getSearchInputs(searchTarget);
+});
+
+eraseBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  searchInput.value = "";
+
+  searchInput.dispatchEvent(new Event("keyup"));
+});
 
 // LocalStorage
 const getTodoLocalStorage = () =>
@@ -192,5 +232,5 @@ const loadTodos = () => {
   const todos = getTodoLocalStorage();
   todos.forEach((todo) => saveTask(todo.text, todo.conclused, false, todo.id));
 };
-  
+
 loadTodos();

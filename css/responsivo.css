@@ -5,35 +5,30 @@
 }
 
 @media (max-width: 450px) {
-    .edit-and-filter-container {
-        flex-direction: column;
-        gap: 1rem;
+    .add-container input {
+        width: 150px;
     }
 
-    .filter-container {
-        border-left: none;
-        padding-left: 0;
+    #filter {
+        width: 88px;
     }
 
-    .add-container label,
     .search-container label {
+        font-size: 0.6rem;
+    }
+
+    .search-container input, .search-container button {
+        width: 130px;
+    }
+    .action-button {
         display: flex;
         flex-direction: column;
     }
-
-    .add-container input,
-    .search-container input {
-        margin-left: 0;
-        width: 100%;
+    .action-button button {
+        padding: .3rem;
+        margin-bottom: 5px;
+        width: 80px;
     }
-}
 
-/* .add-container input,
-    .search-container input {
-        padding: 10px;
-        border-radius: 11px;
-        margin-left: 6px;
-        background-color: transparent;
-        border: 1px solid #fff;
-        color: #fff
-    } */
+  
+}
